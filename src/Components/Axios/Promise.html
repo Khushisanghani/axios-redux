@@ -1,0 +1,23 @@
+<!-- promise 2 value 
+ promiseState,promiseResult -->
+<script>
+    let p = new Promise(function(resolve,reject){
+        document.write("pandding...");
+        setTimeout(()=>{
+            let a = 1 + 2;
+        if(a == 5)
+        {
+            resolve("Success");
+        }
+        else{
+            reject("Failed");
+        }
+    },3000)
+    })
+    // console.log(p);
+    p.then((msg) => {
+        document.write(msg + "promise fulfilled....");
+    }).catch((msg)=>{
+        document.write(msg + "promise rejected....");
+    })
+</script>
