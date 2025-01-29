@@ -1,6 +1,8 @@
-import axios from "axios";
+// import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axiosInstance from "../../Api";
+import { Button, Form } from "react-bootstrap";
 
 function Edit(){
     const navigate = useNavigate();
@@ -16,7 +18,7 @@ function Edit(){
     },[]);
     const handleUpdate = (e) => {
         e.preventDefault();
-        axios.put(`https://679328645eae7e5c4d8dbc1f.mockapi.io/crud/${id}`,{
+        axiosInstance.put(`/crud/${id}`,{
             emp_name:name,
             emp_age:age,
             emp_email:email
@@ -32,32 +34,32 @@ function Edit(){
                 <div className="col-md-4">
                 <div className="mb-2 mt-2">
                         <Link to="/">
-                            <button className="btn btn-primary">Read Data</button>
+                            <Button className="btn btn-primary">Read Data</Button>
                         </Link>
                     </div>
                     <div className="bg-primary p-4 text-center text-white">
                         <h1>Update Data</h1>
                     </div>
-                    <form onSubmit={handleUpdate}>
+                    <Form onSubmit={handleUpdate}>
                         <div className="form-group ">
-                            <label>Enter Name :</label>
-                            <input type="text" placeholder="name" className="form-control" value={name} onChange={(e) => setName(e.target.value)}/>
+                            <Form.Label>Enter Name :</Form.Label>
+                            <Form.Control type="text" placeholder="name" className="form-control" value={name} onChange={(e) => setName(e.target.value)}/>
                         </div>
                         <div className="form-group">
-                            <label>Enter Age :</label>
-                            <input type="number" placeholder="Age" className="form-control" value={age} onChange={(e) => setAge(e.target.value)}
+                            <Form.Label>Enter Age :</Form.Label>
+                            <Form.Control type="number" placeholder="Age" className="form-control" value={age} onChange={(e) => setAge(e.target.value)}
                             />
                         </div>
                         <div className="form-group">
-                            <label>Enter Email :</label>
-                            <input type="email" placeholder="Email" className="form-control"
+                            <Form.Label>Enter Email :</Form.Label>
+                            <Form.Control type="email" placeholder="Email" className="form-control"
                             value={email} onChange={(e) => setEmail(e.target.value)}/>
                         </div>
                         <br/>
                         <div className="d-grid">
-                        <input type="submit" value="Update" className="btn btn-primary"/>
+                        <Form.Control type="submit" value="Update" className="btn btn-primary"/>
                         </div>
-                    </form>
+                    </Form>
                 </div>
             </div>
         </>

@@ -1,11 +1,13 @@
-import axios from "axios";
+// import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axiosInstance from "../../Api";
+import { Button, Table } from "react-bootstrap";
 
 function Read() {
     const [apiData, setApiData] = useState([]);
     function getData() {
-        axios.get('https://679328645eae7e5c4d8dbc1f.mockapi.io/crud')
+        axiosInstance.get('/crud')
             .then((response) => {
                 setApiData(response.data);
             })
@@ -14,7 +16,7 @@ function Read() {
         getData();
     }, []);
    function handleDelete(id) {
-        axios.delete(`https://679328645eae7e5c4d8dbc1f.mockapi.io/crud/${id}`)
+        axiosInstance.delete(`/crud/${id}`)
         .then(() => {
             getData();
         }).catch((error)=>{
@@ -33,10 +35,10 @@ function Read() {
                 <div className="col-md-12">
                     <div className="mb-2 mt-2">
                         <Link to="/create">
-                            <button className="btn btn-primary">Create New Data</button>
+                            <Button className="btn btn-primary">Create New Data</Button>
                         </Link>
                     </div>
-                    <table className="table table-bordered table-striped table-dark table-hover">
+                    <Table className="table table-bordered table-striped table-dark table-hover">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -72,7 +74,7 @@ function Read() {
                                 })
                             }
                         </tbody>
-                    </table>
+                    </Table>
                 </div>
             </div>
         </>
