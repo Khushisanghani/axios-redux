@@ -23,27 +23,48 @@ function Create(){
             age: parseInt(age),
             email
           };
-
-          const validation = schema.parse(formData);
-          if (!validation.success) {
+          try {
+            schema.parse(formData);
+            setErrors({});
+      
+            
+            axiosInstance.post('/crud', {
+              emp_name: name,
+              emp_age: age,
+              emp_email: email
+            }).then(() => 
+                navigate("/")
+            ).catch((error) => 
+                console.error(error)
+            );
+          } catch (validationError) {
             const formErrors = {};
-            validation.error.errors.forEach(err => {
+            validationError.errors.forEach(err => {
               formErrors[err.path[0]] = err.message;
             });
             setErrors(formErrors);
-          } else {
-            setErrors({});
-             axiosInstance.post('/crud', {  
-                emp_name:name,
-                emp_age:age,
-                emp_email:email
-            }).then(() =>
-                navigate("/")
-            ).catch ((error) => 
-            console.error(error)
-    )
-       }      
-    }
+          }
+        };
+    //       const validation = schema.safeParse(formData);
+    //       if (!validation.success) {
+    //         const formErrors = {};
+    //         validation.error.errors.forEach(err => {
+    //           formErrors[err.path[0]] = err.message;
+    //         });
+    //         setErrors(formErrors);
+    //       } else {
+    //         setErrors({});
+    //          axiosInstance.post('/crud', {  
+    //             emp_name:name,
+    //             emp_age:age,
+    //             emp_email:email
+    //         }).then(() =>
+    //             navigate("/")
+    //         ).catch ((error) => 
+    //         console.error(error)
+    // )
+    //    }      
+    // }
     return(
         <>
             <div className="row">
